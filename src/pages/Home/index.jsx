@@ -55,6 +55,7 @@ function Home() {
       <div className='inputsContainer'>
         <input 
           type="text"
+          className='inputCep'
           placeholder='Digite o CEP'
           value={input} // O input mostra o que estiver no estado
           onChange={(e) => setInput(e.target.value)} // Ao digitar, atualiza o estado
@@ -124,6 +125,7 @@ function Home() {
         href="#"
         onClick={copiarEndereco}
         >
+          <i class="fa-regular fa-copy"></i>
           Copiar endereço
         </a>
 

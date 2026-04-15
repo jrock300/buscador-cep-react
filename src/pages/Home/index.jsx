@@ -25,9 +25,14 @@ function Home() {
       setInput("");
     }catch{
       alert("Erro ao buscar o CEP!");
-      setInput("");
-      setCep("");
+      setInput(""); // Esvazia a string
+      setCep({}); // Esvazia o objeto Cep
     }
+  }
+
+  function limpaCampos(){
+   setInput("");
+   setCep("");
   }
 
   return (
@@ -44,6 +49,9 @@ function Home() {
         <button className='btnBuscar' onClick={handleSearch}>
           Buscar
         </button>
+        <button className='btnLimpar' onClick={limpaCampos}>
+          Limpar
+        </button>
       </div>
 
       <div className="main">
@@ -54,6 +62,7 @@ function Home() {
           type="text" 
           name='logradouro'
           value={cep.logradouro || ''}
+          readOnly
           />
         </div>
 
@@ -63,6 +72,7 @@ function Home() {
           type="text" 
           name='bairro'
           value={cep.bairro || ''}
+          readOnly
           />
         </div>
         
@@ -72,6 +82,7 @@ function Home() {
           type="text" 
           name='cidade'
           value={cep.localidade || ''}
+          readOnly // Isso avisa ao React que é normal não ter onChange
           />
         </div>
 
@@ -81,6 +92,7 @@ function Home() {
           type="text" 
           name='estado'
           value={cep.estado || ''}
+          readOnly
           />
         </div>
 
@@ -90,6 +102,7 @@ function Home() {
           type="text" 
           name='cep'
           value={cep.cep || ''}
+          readOnly
           />
         </div>
       </div>

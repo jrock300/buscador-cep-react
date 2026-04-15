@@ -25,15 +25,14 @@ function Home() {
       setInput("");
     }catch{
       alert("Erro ao buscar o CEP!");
-      setInput(""); // Esvazia a string
-      setCep({}); // Esvazia o objeto Cep
+      limpaCampos();
     }
   }
 
   // Função que limpa campos
   function limpaCampos(){
    setInput("");
-   setCep("");
+   setCep({});
   }
 
   // Função que copia o endereço para a área de transferência

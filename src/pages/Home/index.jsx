@@ -30,9 +30,24 @@ function Home() {
     }
   }
 
+  // Função que limpa campos
   function limpaCampos(){
    setInput("");
    setCep("");
+  }
+
+  // Função que copia o endereço para a área de transferência
+  function copiarEndereco (e){
+    e.preventDefault();
+    const enderecoCompleto = `Logradouro: ${cep.logradouro}\nBairro: ${cep.bairro}\nCidade: ${cep.localidade}\nEstado: ${cep.estado}\nCEP: ${cep.cep}`;
+
+    navigator.clipboard.writeText(enderecoCompleto)
+    .then(() => {
+      alert("Endereço copiado!");
+    })
+    .catch((err)=>{
+      console.error("Erro ao copiar: ", err);
+    });
   }
 
   return (
@@ -105,6 +120,14 @@ function Home() {
           readOnly
           />
         </div>
+
+        <a 
+        href="#"
+        onClick={copiarEndereco}
+        >
+          Copiar endereço
+        </a>
+
       </div>
     </div>
   )

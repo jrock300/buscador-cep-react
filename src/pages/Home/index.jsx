@@ -1,10 +1,98 @@
-import './style.css'
+import {useState} from 'react'; // Importamos o hook useState
+import './style.css';
 
 function Home() {
 
+  // Criamos o estado: 'input' é o valor, 'setInput' é a função que muda o valor
+  const [input, setInput] = useState('');
+  const [cep, setCep] = useState({});
+
+  // Função que será chamada ao clicar o botão
+  async function handleSearch() {
+    if(input === '') {
+      alert("Preencha algum CEP!");
+      return;
+    }
+    // alert(`O que você digitou foi: ${input}`);
+    try {
+      const url = `https://viacep.com.br/ws/${input}/json/`;
+      const res = await fetch(url);
+      const data = await res.json();
+      console.log(data);
+
+      // Salva os dados no estado, Não usamos return
+      setCep(data);
+      setInput("");
+    }catch{
+      alert("Erro ao buscar o CEP!");
+      setInput("");
+      setCep("");
+    }
+  }
+
   return (
     <div>
-      <h1>Olá React</h1>
+      <h1>Buscador de Cep - com React Js</h1>
+      <div className='inputsContainer'>
+        <input 
+          type="text"
+          placeholder='Digite o CEP'
+          value={input} // O input mostra o que estiver no estado
+          onChange={(e) => setInput(e.target.value)} // Ao digitar, atualiza o estado
+        />
+
+        <button className='btnBuscar' onClick={handleSearch}>
+          Buscar
+        </button>
+      </div>
+
+      <div className="main">
+
+        <div className='item-endereco'>
+          <label htmlFor="logradouro">Logradouro</label>
+          <input 
+          type="text" 
+          name='logradouro'
+          value={cep.logradouro || ''}
+          />
+        </div>
+
+        <div className='item-endereco'>
+          <label htmlFor="bairro">Bairro</label>
+          <input 
+          type="text" 
+          name='bairro'
+          value={cep.bairro || ''}
+          />
+        </div>
+        
+        <div className='item-endereco'>
+          <label htmlFor="cidade">Cidade</label>
+          <input 
+          type="text" 
+          name='cidade'
+          value={cep.localidade || ''}
+          />
+        </div>
+
+        <div className='item-endereco'>
+          <label htmlFor="estado">Estado</label>
+          <input 
+          type="text" 
+          name='estado'
+          value={cep.estado || ''}
+          />
+        </div>
+
+        <div className='item-endereco'>
+          <label htmlFor="cep">CEP</label>
+          <input 
+          type="text" 
+          name='cep'
+          value={cep.cep || ''}
+          />
+        </div>
+      </div>
     </div>
   )
 }
